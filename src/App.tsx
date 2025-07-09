@@ -206,19 +206,19 @@ function App() {
                 <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse" />
               </div>
 
-              {/* Year Badge */}
-              <div className={`absolute left-14 sm:left-16 md:left-1/2 -top-3 sm:-top-4 md:top-0 transform md:-translate-x-1/2 md:-translate-y-8 ${
-                index % 2 === 0 ? 'md:translate-x-4' : 'md:-translate-x-4'
-              }`}>
-                <div className="bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-900 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg whitespace-nowrap">
-                  {item.year}
-                </div>
-              </div>
-
               {/* Content Card */}
-              <div className={`ml-14 sm:ml-16 md:ml-0 md:w-5/12 mt-6 sm:mt-8 md:mt-0 ${
+              <div className={`ml-14 sm:ml-16 md:ml-0 md:w-5/12 ${
                 index % 2 === 0 ? 'md:ml-auto md:pl-16' : 'md:mr-auto md:pr-16'
               }`}>
+                {/* Year Badge - Mobile: Inside card, Desktop: Outside */}
+                <div className={`md:absolute md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-8 ${
+                  index % 2 === 0 ? 'md:translate-x-4' : 'md:-translate-x-4'
+                }`}>
+                  <div className="bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-900 px-3 py-1.5 rounded-full text-sm font-bold shadow-lg mb-4 md:mb-0 inline-block">
+                    {item.year}
+                  </div>
+                </div>
+
                 <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 shadow-xl border border-slate-700/50 hover:border-amber-400/30 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/10 group">
                   {/* Category Badge & Impact */}
                   <div className="flex items-center justify-between mb-3">
