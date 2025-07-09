@@ -194,12 +194,17 @@ function App() {
           {timelineData.map((item, index) => (
             <div
               key={`${item.year}-${index}`}
-              className={`timeline-item relative transform transition-all duration-1000 ${
-                visibleItems.has(index.toString()) 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-12'
+              className={`timeline-item relative ${
+                visibleItems.has(index.toString())
+                  ? 'timeline-visible'
+                  : isMobile
+                    ? 'timeline-enter-mobile'
+                    : index % 2 === 0
+                      ? 'timeline-enter-right'
+                      : 'timeline-enter-left'
               }`}
               data-index={index}
+              style={{ '--item-index': index } as React.CSSProperties}
             >
               {/* Timeline Dot */}
               <div className={`absolute left-4 sm:left-6 md:left-1/2 w-6 h-6 rounded-full transform md:-translate-x-1/2 z-10 bg-gradient-to-br ${item.color} shadow-lg`}>
