@@ -26,6 +26,13 @@
   .timeline-item:nth-child(odd) {
     animation-delay: 0.2s;
   }
+
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    .timeline-item {
+      animation-delay: 0.05s;
+    }
+  }
 }
 
 /* Custom scrollbar */
@@ -46,9 +53,56 @@
   background: linear-gradient(to bottom, #d97706, #ca8a04);
 }
 
+/* Mobile scrollbar (for webkit browsers) */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+}
+
 /* Smooth transitions for all elements */
 * {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
+}
+
+/* Enhanced mobile touch targets */
+@media (max-width: 768px) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Better text rendering on mobile */
+@media (max-width: 768px) {
+  body {
+    text-rendering: optimizeSpeed;
+  }
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .timeline-item {
+    animation: none !important;
+  }
 }
