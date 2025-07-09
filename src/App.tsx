@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, MapPin, Users, Zap, Globe, Rocket, Heart, Trophy, Camera, Music, Menu, X, Filter } from 'lucide-react';
+import { Calendar, MapPin, Users, Zap, Globe, Rocket, Heart, Trophy } from 'lucide-react';
 
 const timelineData = [
   {
@@ -112,17 +112,9 @@ const timelineData = [
   }
 ];
 
-const categories = ["All", "Technology", "History", "Economics", "Space", "Politics", "Health"];
-
 function App() {
   const [visibleItems, setVisibleItems] = useState(new Set());
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-
-  const filteredData = selectedCategory === "All" 
-    ? timelineData 
-    : timelineData.filter(item => item.category === selectedCategory);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -155,7 +147,7 @@ function App() {
       observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [filteredData]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-x-hidden">
@@ -188,51 +180,9 @@ function App() {
               <div className="text-2xl font-bold text-emerald-400">121</div>
               <div className="text-sm text-slate-400">Years</div>
             </div>
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg px-4 py-2 border border-slate-700/50">
-              <div className="text-2xl font-bold text-purple-400">{categories.length - 1}</div>
-              <div className="text-sm text-slate-400">Categories</div>
-            </div>
           </div>
         </div>
       </header>
-
-      {/* Filter Section */}
-      <div className="sticky top-1 z-40 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50 px-4 py-3">
-        <div className="max-w-6xl mx-auto">
-          {/* Mobile Filter Toggle */}
-          <div className="flex items-center justify-between md:hidden">
-            <span className="text-sm font-medium text-slate-300">Filter by Category</span>
-            <button
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors"
-            >
-              {isFilterOpen ? <X className="w-5 h-5" /> : <Filter className="w-5 h-5" />}
-            </button>
-          </div>
-
-          {/* Filter Options */}
-          <div className={`${isFilterOpen ? 'block' : 'hidden'} md:block mt-3 md:mt-0`}>
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => {
-                    setSelectedCategory(category);
-                    setIsFilterOpen(false);
-                  }}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                    selectedCategory === category
-                      ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-900 shadow-lg'
-                      : 'bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-600'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Timeline */}
       <div className="relative max-w-6xl mx-auto px-4 pb-20">
@@ -241,7 +191,7 @@ function App() {
 
         {/* Timeline Items */}
         <div className="space-y-12 sm:space-y-16">
-          {filteredData.map((item, index) => (
+          {timelineData.map((item, index) => (
             <div
               key={`${item.year}-${index}`}
               className={`timeline-item relative transform transition-all duration-1000 ${
@@ -309,15 +259,6 @@ function App() {
             </div>
           ))}
         </div>
-
-        {/* Empty State */}
-        {filteredData.length === 0 && (
-          <div className="text-center py-20">
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-2xl font-bold text-slate-400 mb-2">No events found</h3>
-            <p className="text-slate-500">Try selecting a different category</p>
-          </div>
-        )}
       </div>
 
       {/* Back to Top Button */}
