@@ -31,6 +31,12 @@
   @media (max-width: 768px) {
     .timeline-item {
       animation-delay: 0.05s;
+      margin-bottom: 2rem;
+    }
+    
+    /* Ensure proper spacing between timeline items on mobile */
+    .timeline-item:not(:last-child) {
+      margin-bottom: 3rem;
     }
   }
 }
